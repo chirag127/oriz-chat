@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://chat.oriz.in/sitemap-index.xml

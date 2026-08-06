@@ -1,0 +1,97 @@
+---
+import Layout from '../layouts/Layout.astro'
+import OzToolShell from '@chirag127/oz-chrome/components/OzToolShell.astro'
+import ChatApp from '../components/ChatApp.tsx'
+import '../styles/chat.css'
+---
+
+<Layout>
+  <OzToolShell site="chat" title="AI Chat" mainClass="chat-page">
+    <section class="hero">
+      <h1 class="hero__title">Talk to the aurora.</h1>
+      <p class="hero__sub">
+        Free, streaming AI chat — right in your browser. Pick any model, choose a preset,
+        and keep the whole conversation on your own device.
+      </p>
+    </section>
+
+    <ChatApp client:only="react" />
+
+    <section class="feat" aria-label="Features">
+      <div class="feat__grid">
+        <div class="feat__card">
+          <h3>Any model, auto failover</h3>
+          <p>Full g4f model picker with multi-provider failover — no API key, no signup.</p>
+        </div>
+        <div class="feat__card">
+          <h3>Markdown + code</h3>
+          <p>Responses render as sanitized markdown with fenced code, tables and lists.</p>
+        </div>
+        <div class="feat__card">
+          <h3>Private history</h3>
+          <p>Conversations save to IndexedDB on your device. Nothing leaves the browser.</p>
+        </div>
+        <div class="feat__card">
+          <h3>Presets + export</h3>
+          <p>Jump-start with system-prompt presets. Export any chat as Markdown or JSON.</p>
+        </div>
+      </div>
+      <p class="privacy">100% client-side · no upload · no signup · your chats stay on this device.</p>
+    </section>
+
+    <a slot="footer" href="https://github.com/chirag127/oriz-chat" rel="noopener">GitHub</a>
+    <a slot="footer" href="https://oriz.in" rel="home">More oriz.in tools</a>
+  </OzToolShell>
+</Layout>
+
+<style>
+  .chat-page { max-width: 62rem; }
+  .hero {
+    text-align: center;
+    padding: var(--oz-space-8) 0 var(--oz-space-6);
+  }
+  .hero__title {
+    font-size: clamp(2.2rem, 7vw, 3.8rem);
+    background: linear-gradient(100deg, var(--au-teal), var(--au-violet) 55%, var(--au-magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero__sub {
+    max-width: 40rem;
+    margin: var(--oz-space-4) auto 0;
+    color: var(--oz-ink-mute);
+    font-size: 1.05rem;
+  }
+  .feat {
+    margin-top: var(--oz-space-12);
+  }
+  .feat__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--oz-space-4);
+  }
+  .feat__card {
+    border: 1px solid var(--au-hair);
+    border-radius: var(--oz-radius-l);
+    background: var(--au-panel);
+    backdrop-filter: blur(var(--au-glass-blur));
+    padding: var(--oz-space-5);
+  }
+  .feat__card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+    color: var(--au-teal);
+  }
+  .feat__card p {
+    color: var(--oz-ink-mute);
+    font-size: var(--oz-text-sm);
+    margin: 0;
+  }
+  .privacy {
+    text-align: center;
+    margin-top: var(--oz-space-6);
+    color: var(--oz-ink-mute);
+    font-size: var(--oz-text-sm);
+  }
+</style>
