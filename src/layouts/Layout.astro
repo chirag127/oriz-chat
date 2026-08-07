@@ -10,10 +10,21 @@ interface Props {
   description?: string
 }
 const {
-  title = 'oriz-chat — Free AI Chat',
-  description = 'Free multi-turn AI chat in your browser. Model picker, markdown, prompt presets, history, export. 100% client-side — no signup, no upload.',
+  title = 'oriz Chat — Free AI Chat in Your Browser, No Signup',
+  description = 'Free online AI chat — 100% in your browser, no signup, no upload. Any g4f model with auto failover, streaming replies, markdown + code, prompt presets, private on-device history, Markdown/JSON export.',
 } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
+const ogImage = new URL('/screenshots/desktop.png', Astro.site)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'oriz Chat',
+  applicationCategory: 'UtilityApplication',
+  operatingSystem: 'Web',
+  url: 'https://chat.oriz.in',
+  description,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+}
 ---
 
 <!doctype html>
@@ -28,13 +39,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="oriz Chat" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#070912" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <script is:inline src="/registerSW.js"></script>
     <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
     <slot />
