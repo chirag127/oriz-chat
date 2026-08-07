@@ -1,0 +1,87 @@
+# oriz Chat — full content
+
+> Free, streaming AI chat that runs entirely in your browser. 100% client-side — no upload, no signup, no API key. Live at https://chat.oriz.in
+
+## What it is
+
+oriz Chat is a free AI chat app that runs entirely in your web browser. It supports multi-turn conversations, a full model picker with automatic multi-provider failover, sanitized markdown rendering, on-device conversation history, prompt presets, and export to Markdown or JSON. There is no backend, no account, and no API key — the only network calls are the AI completion requests you initiate, routed through g4f providers.
+
+## Hero
+
+Talk to the aurora. Free, streaming AI chat — right in your browser. Pick any model, choose a preset, and keep the whole conversation on your own device.
+
+## Features
+
+### Any model, auto failover
+Full g4f model picker with multi-provider failover — no API key, no signup. If one provider is down, the request automatically retries against another.
+
+### Markdown + code
+Responses render as sanitized markdown with fenced code blocks, tables and lists. Markdown parsing (marked) and sanitization (DOMPurify) are lazy-loaded.
+
+### Private history
+Conversations save to IndexedDB on your device. Nothing leaves the browser. Browse, reopen, and delete past conversations.
+
+### Presets + export
+Jump-start with system-prompt presets. Export any chat as Markdown or JSON.
+
+### Streaming chat
+Token-by-token responses via @chirag127/oz-ai (g4f multi-provider client, no API key).
+
+### Drag & drop
+Drop a .txt or .md file into the composer to load it as context.
+
+### Accessible + responsive
+WCAG-AA contrast, keyboard navigation, works from mobile (390px) to desktop (1440px).
+
+## Prompt presets
+
+- General assistant — a helpful, concise assistant that uses markdown when useful.
+- Code helper — an expert software engineer giving correct, minimal code with short explanations and fenced code blocks with language tags.
+- Brainstorm — a creative brainstorming partner offering diverse, concrete ideas as short bulleted lists.
+- Explain simply — explains concepts clearly for a curious beginner using analogies and short paragraphs.
+- Rewrite / polish — improves writing, keeps the author's voice, fixes grammar, tightens prose, returns only the rewritten text.
+- Translate — a professional translator that detects the source language and translates faithfully, preserving tone and formatting.
+
+## How to use
+
+1. Open https://chat.oriz.in in any modern browser.
+2. Pick a model from the model picker (any g4f model; failover is automatic).
+3. Optionally choose a prompt preset to set the system prompt.
+4. Type your message and send — responses stream token-by-token.
+5. Continue the multi-turn conversation; it saves automatically to IndexedDB on your device.
+6. Browse, reopen, or delete past conversations from your private history.
+7. Export any conversation as Markdown or JSON at any time.
+
+## Privacy
+
+100% client-side. No backend, no accounts, no telemetry. Conversations save to IndexedDB on your own device and never touch a server. The only network calls are the AI completion requests you initiate, routed through g4f providers. History and exports stay on your device.
+
+## Tech
+
+- Astro (static output), client-only React 19 islands, Tailwind CSS v4.
+- AI via @chirag127/oz-ai — a g4f multi-provider browser client, keyless.
+- Markdown via marked + DOMPurify (lazy-loaded).
+- History via idb (IndexedDB).
+- Installable PWA (offline shell + runtime caching).
+- Shared atomic @chirag127/* packages (oz-ai, oz-file, oz-tokens-base, oz-chrome) for mechanism only; the visual theme is bespoke to this site.
+
+## FAQ
+
+Is it free? Yes, completely free. No signup, no API key, no card.
+
+Do you store my chats? No. Conversations live only in your browser's IndexedDB. Nothing is uploaded.
+
+Do I need an account? No. There is no auth on this free tool.
+
+Which models can I use? Every model exposed by g4f, with automatic failover between providers.
+
+Can I use it offline? The app shell is a PWA and installs/caches offline, but AI completions need a network connection to reach a provider.
+
+## Links
+
+- Live app: https://chat.oriz.in
+- Info page: https://chirag127.github.io/oriz-chat/
+- Source: https://github.com/chirag127/oriz-chat
+- More oriz.in tools: https://oriz.in
+
+MIT © 2026 Chirag Singhal

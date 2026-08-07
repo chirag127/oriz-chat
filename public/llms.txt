@@ -1,0 +1,23 @@
+# oriz Chat
+
+> Free, streaming AI chat that runs entirely in your browser. Multi-turn conversations, full model picker with automatic multi-provider failover, markdown rendering, on-device history, prompt presets, and export. 100% client-side — no upload, no signup, no API key.
+
+## App
+
+- [Live app](https://chat.oriz.in): the chat tool — pick a model, choose a preset, talk to the AI, all in-browser.
+- [llms-full.txt](https://chat.oriz.in/llms-full.txt): full plain-text content of the site for LLM ingestion.
+
+## Features
+
+- [Streaming chat](https://chat.oriz.in): token-by-token AI responses via g4f multi-provider, no API key.
+- [Model picker](https://chat.oriz.in): every g4f model with automatic failover when a provider is down.
+- [Prompt presets](https://chat.oriz.in): general, code, brainstorm, explain, rewrite, translate system prompts.
+- [Markdown render](https://chat.oriz.in): sanitized markdown, fenced code, tables and lists.
+- [Private history](https://chat.oriz.in): conversations persist in IndexedDB on your device; browse, reopen, delete.
+- [Export](https://chat.oriz.in): download any conversation as Markdown or JSON.
+
+## About
+
+- [Info page](https://chirag127.github.io/oriz-chat/): what oriz Chat is, how it works, tech stack.
+- [Source](https://github.com/chirag127/oriz-chat): MIT-licensed source on GitHub.
+- [More oriz.in tools](https://oriz.in): the rest of the free oriz.in tool suite.
