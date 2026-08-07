@@ -16,7 +16,10 @@ import {
   saveConversation,
 } from '../lib/history'
 
-const DEFAULT_MODEL = 'gpt-4o-mini'
+// 'auto' = let oz-ai pick + fail over across its full provider/model space.
+// Passing a concrete model to oz-ai pins it and DISABLES model-cycling, so the
+// default must stay 'auto' for the failover chain to actually recover.
+const DEFAULT_MODEL = 'auto'
 
 type Status = 'idle' | 'thinking' | 'streaming' | 'error'
 
@@ -129,10 +132,25 @@ export default function ChatApp() {
     abortRef.current = ac
 
     const apiMsgs = toApiMessages(base.messages, preset.system)
+    // Only pin a model when the user picked a concrete one; 'auto' → omit so
+    // oz-ai runs its default chain AND cycles the full model space on failure.
+    const modelOpt = base.model === DEFAULT_MODEL ? {} : { model: base.model }
+
+    const applyAssistant = (acc: string, aiTs: number) =>
+      setConvo((c) => {
+        const msgs = [...c.messages]
+        const last = msgs[msgs.length - 1]
+        if (last?.role === 'assistant') {
+          msgs[msgs.length - 1] = { ...last, content: acc }
+        } else {
+          msgs.push({ role: 'assistant', content: acc, ts: aiTs })
+        }
+        return { ...c, messages: msgs, updatedAt: Date.now() }
+      })
 
     try {
       const stream = await chat(apiMsgs, {
-        model: base.model,
+        ...modelOpt,
         stream: true,
         signal: ac.signal,
       })
@@ -141,16 +159,7 @@ export default function ChatApp() {
       const aiTs = Date.now()
       for await (const delta of stream) {
         acc += delta
-        setConvo((c) => {
-          const msgs = [...c.messages]
-          const last = msgs[msgs.length - 1]
-          if (last?.role === 'assistant') {
-            msgs[msgs.length - 1] = { ...last, content: acc }
-          } else {
-            msgs.push({ role: 'assistant', content: acc, ts: aiTs })
-          }
-          return { ...c, messages: msgs, updatedAt: Date.now() }
-        })
+        applyAssistant(acc, aiTs)
       }
       setStatus('idle')
       abortRef.current = null
@@ -160,8 +169,8 @@ export default function ChatApp() {
         return done
       })
     } catch (e) {
-      abortRef.current = null
       if (ac.signal.aborted) {
+        abortRef.current = null
         setStatus('idle')
         setConvo((c) => {
           persist(c)
@@ -169,14 +178,36 @@ export default function ChatApp() {
         })
         return
       }
-      setStatus('error')
-      setError(
-        e instanceof OzAiError
-          ? 'All AI providers are busy right now. Try again, or switch model.'
-          : e instanceof Error
-            ? e.message
-            : 'Something went wrong.'
-      )
+      // Streaming has no model-cycling (oz-ai only cycles non-stream). One
+      // retry as a non-streaming completion WITHOUT a pinned model exhausts the
+      // whole provider/model space before surfacing an error.
+      try {
+        setStatus('thinking')
+        const reply = await chat(apiMsgs, { signal: ac.signal })
+        applyAssistant(reply, Date.now())
+        setStatus('idle')
+        abortRef.current = null
+        setConvo((c) => {
+          const done = { ...c, updatedAt: Date.now() }
+          persist(done)
+          return done
+        })
+        return
+      } catch (e2) {
+        abortRef.current = null
+        if (ac.signal.aborted) {
+          setStatus('idle')
+          return
+        }
+        setStatus('error')
+        setError(
+          e2 instanceof OzAiError
+            ? 'All AI providers are busy right now. Try again in a moment, or switch model.'
+            : e2 instanceof Error
+              ? e2.message
+              : 'Something went wrong.'
+        )
+      }
     }
   }, [input, status, convo, preset.system, persist])
 
@@ -275,7 +306,7 @@ export default function ChatApp() {
             >
               {models.map((m) => (
                 <option key={m} value={m}>
-                  {m}
+                  {m === DEFAULT_MODEL ? 'Auto (best available)' : m}
                 </option>
               ))}
             </select>
@@ -310,7 +341,7 @@ export default function ChatApp() {
           </div>
         </div>
 
-        <div className="chat-stream au-scroll" ref={scrollRef} aria-live="polite">
+        <div className={`chat-stream au-scroll${empty ? ' is-empty' : ''}`} ref={scrollRef} aria-live="polite">
           {empty && (
             <div className="empty-state">
               <h2>Start a conversation</h2>

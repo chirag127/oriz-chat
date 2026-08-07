@@ -158,6 +158,10 @@
   flex-direction: column;
   gap: var(--oz-space-4);
 }
+/* center the invitation vertically only when there are no messages yet */
+.chat-stream.is-empty {
+  justify-content: center;
+}
 
 .bubble {
   max-width: 82%;
