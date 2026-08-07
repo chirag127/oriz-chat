@@ -30,6 +30,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#070912" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <script is:inline src="/registerSW.js"></script>
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
