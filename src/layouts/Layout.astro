@@ -49,7 +49,10 @@ const jsonLd = {
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#070912" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
-    <script is:inline src="/registerSW.js"></script>
+    <script is:inline>
+      if ('serviceWorker' in navigator)
+        addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}))
+    </script>
     <meta name="generator" content={Astro.generator} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </head>
