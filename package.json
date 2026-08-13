@@ -22,7 +22,7 @@
     "@fontsource-variable/nunito": "^5.2.5",
     "@tailwindcss/vite": "^4.1.13",
     "@vite-pwa/astro": "^1.2.0",
-    "astro": "^6.4.8",
+    "astro": "^7.2.1",
     "dompurify": "^3.2.6",
     "idb": "^8.0.3",
     "marked": "^15.0.12",
