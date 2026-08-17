@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About oriz Chat — free client-side AI chat</title>
+<meta name="description" content="About oriz Chat: a free, 100% client-side AI chat app — multi-turn, model picker, markdown, history, export. No signup, no upload. This is the project info page." />
+<link rel="canonical" href="https://chirag127.github.io/oriz-chat/" />
+<style>
+  :root { color-scheme: light dark; --fg:#1a1a1a; --mut:#555; --bg:#fafafa; --card:#fff; --line:#e4e4e7; --ac:#2563eb; }
+  @media (prefers-color-scheme: dark){ :root{ --fg:#e8e8ea; --mut:#a1a1aa; --bg:#111113; --card:#18181b; --line:#27272a; --ac:#60a5fa; } }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.6; color:var(--fg); background:var(--bg); }
+  .wrap { max-width:44rem; margin:0 auto; padding:2.5rem 1.25rem 4rem; }
+  .badge { display:inline-block; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mut); border:1px solid var(--line); border-radius:999px; padding:.2rem .7rem; }
+  h1 { font-size:2rem; margin:1rem 0 .25rem; }
+  .lede { font-size:1.1rem; color:var(--mut); margin:0 0 1.5rem; }
+  .cta { display:flex; flex-wrap:wrap; gap:.6rem; margin:1.5rem 0 2rem; }
+  a.btn { text-decoration:none; border:1px solid var(--line); border-radius:.5rem; padding:.55rem .9rem; color:var(--fg); background:var(--card); font-weight:600; font-size:.95rem; }
+  a.btn.primary { background:var(--ac); border-color:var(--ac); color:#fff; }
+  h2 { font-size:1.15rem; margin:2rem 0 .5rem; }
+  ul { padding-left:1.2rem; margin:.5rem 0; }
+  li { margin:.3rem 0; }
+  code { background:var(--card); border:1px solid var(--line); border-radius:.3rem; padding:.05rem .35rem; font-size:.9em; }
+  a { color:var(--ac); }
+  footer { margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--line); font-size:.85rem; color:var(--mut); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="badge">Project info · about this site</span>
+  <h1>oriz Chat</h1>
+  <p class="lede">Free AI chat — multi-turn, model picker, markdown, history, export. Runs 100% in your browser.</p>
+
+  <div class="cta">
+    <a class="btn primary" href="https://chat.oriz.in">Open the app →</a>
+    <a class="btn" href="https://github.com/chirag127/oriz-chat">Source on GitHub</a>
+    <a class="btn" href="https://chat.oriz.in/llms.txt">llms.txt</a>
+  </div>
+
+  <p>This is the <strong>about / info page</strong> for oriz Chat — not the app itself. The live tool lives at
+  <a href="https://chat.oriz.in">chat.oriz.in</a>.</p>
+
+  <h2>What it is</h2>
+  <p>A free, streaming AI chat app that runs entirely in your web browser. Multi-turn conversations, a full model
+  picker with automatic multi-provider failover, sanitized markdown rendering, on-device history, prompt presets,
+  and export — with no backend, no account, and no API key.</p>
+
+  <h2>Features</h2>
+  <ul>
+    <li><strong>Any model, auto failover</strong> — full g4f model picker; retries another provider if one is down.</li>
+    <li><strong>Prompt presets</strong> — general, code, brainstorm, explain, rewrite, translate.</li>
+    <li><strong>Markdown + code</strong> — sanitized markdown with fenced code, tables, lists.</li>
+    <li><strong>Private history</strong> — conversations saved to IndexedDB on your device; browse, reopen, delete.</li>
+    <li><strong>Export</strong> — download any chat as Markdown or JSON.</li>
+    <li><strong>Drag &amp; drop</strong> — drop a <code>.txt</code>/<code>.md</code> file into the composer as context.</li>
+  </ul>
+
+  <h2>Tech</h2>
+  <ul>
+    <li>Client-only <strong>Astro</strong> (static) + React 19 islands + Tailwind v4.</li>
+    <li>AI via <strong>g4f</strong> through <code>@chirag127/oz-ai</code> — keyless multi-provider client.</li>
+    <li><strong>PWA-installable</strong>; offline app shell.</li>
+    <li><strong>100% in-browser</strong> — no upload, no signup, no telemetry.</li>
+  </ul>
+
+  <h2>Privacy</h2>
+  <p>No backend, no accounts, no telemetry. The only network calls are the AI completion requests you initiate.
+  History and exports stay on your device.</p>
+
+  <footer>
+    Live app: <a href="https://chat.oriz.in">chat.oriz.in</a> ·
+    Source: <a href="https://github.com/chirag127/oriz-chat">github.com/chirag127/oriz-chat</a> ·
+    <a href="https://chat.oriz.in/llms.txt">llms.txt</a> ·
+    <a href="https://oriz.in">More oriz.in tools</a><br />
+    MIT © 2026 Chirag Singhal
+  </footer>
+</div>
+</body>
+</html>
